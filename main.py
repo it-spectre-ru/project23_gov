@@ -14,7 +14,11 @@ proxies = {
 
 def get_data(url):
   response = requests.get(url=url, headers=headers, proxies=proxies)
-  print(response.text)
+  # print(response)
+
+  with open(file='index.html', mode='w') as file:
+    file.write(response.text)
+
 
 def main():
   get_data(url='https://www.bls.gov/regions/midwest/data/AverageEnergyPrices_SelectedAreas_Table.htm')
