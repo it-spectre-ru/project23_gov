@@ -13,11 +13,24 @@ proxies = {
 
 
 def get_data(url):
-  response = requests.get(url=url, headers=headers, proxies=proxies)
+  # response = requests.get(url=url, headers=headers, proxies=proxies)
   # print(response)
 
-  with open(file='index.html', mode='w') as file:
-    file.write(response.text)
+  # with open(file='index.html', mode='w') as file:
+  #   file.write(response.text)
+
+  with open(file='index.html') as file:
+    src = file.read()
+
+  soup = BeautifulSoup(src, 'lxml')
+  table = soup.find('table', id='ro5xgenergy')
+
+  data_th = table.find('thead').find_all('tr')[-1].find_all('th')
+
+  for dth in data_th:
+    dth = dth.text.strip()
+    print(dth)
+
 
 
 def main():
