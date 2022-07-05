@@ -1,3 +1,4 @@
+import csv
 import requests
 from bs4 import BeautifulSoup
 from proxy_config import login, password, proxy
@@ -26,11 +27,20 @@ def get_data(url):
   table = soup.find('table', id='ro5xgenergy')
 
   data_th = table.find('thead').find_all('tr')[-1].find_all('th')
-
+  table_headers = ['Area']
   for dth in data_th:
     dth = dth.text.strip()
-    print(dth)
+    # print(dth)
+    table_headers.append(dth)
 
+  with open('data.csv', 'w') as file:
+    writer = csv.writer(file)
+
+    writer.writerow(
+      (
+        table_headers
+      )
+    )
 
 
 def main():
